@@ -11,3 +11,6 @@
 
 # folders
 
+# virtual environments
+.venv/
+venv/

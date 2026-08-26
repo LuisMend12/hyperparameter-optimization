@@ -1,21 +1,41 @@
+# Verified working stack for Python 3.11 (see .venv in this folder).
+#
+# IMPORTANT: scikit-learn is pinned to < 1.6 on purpose.
+# scikit-optimize 0.10.2 is its final release (Aug 2024) and was never updated
+# for the __sklearn_tags__ estimator-tag protocol introduced in scikit-learn 1.6.
+# On scikit-learn >= 1.6, skopt's dummy_minimize() and gbrt_minimize() raise
+#   AttributeError: 'NoneType' object has no attribute '__sklearn_tags__'
+# so do not bump scikit-learn without also dropping scikit-optimize.
+
 # usual libraries
 joblib==1.4.2
-matplotlib==3.3.3
+matplotlib==3.9.2
 numpy==1.26.4
-pandas==2.2.2
-scikit-learn==1.5.1
+pandas==2.2.3
+scikit-learn==1.5.2
 scipy==1.14.1
-seaborn==0.11.1
-xgboost==2.1.1
+seaborn==0.13.2
+xgboost==2.1.4
 
-# for neural networks
-Keras==2.5.0
-tensorflow==2.17.0
+# for neural networks (Keras 3 ships with TensorFlow 2.17)
+tensorflow==2.17.1
 
 # for hyperparameter optimization
-hyperopt==0.2.7
+hyperopt==0.3.0
 scikit-optimize==0.10.2
-optuna==4.0.0
+optuna==4.9.0
 
 # required by optuna
 cmaes==0.11.1
+
+# optuna.integration (XGBoostPruningCallback) split into its own
+# package in optuna 3.x; Section-12 notebooks still import it as
+# `from optuna.integration import XGBoostPruningCallback`, which
+# keeps working once this is installed.
+optuna-integration[xgboost]==4.9.0
+
+# optuna.visualization needs plotly
+plotly==5.24.1
+
+# notebook kernel
+ipykernel
